@@ -1,0 +1,184 @@
+import React from 'react';
+
+// スタイル定数を外部化
+const styles = {
+  card: {
+    backgroundColor: '#f8fafc',
+    borderRadius: '8px',
+    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+    overflow: 'hidden',
+    transition: 'all 0.3s ease',
+    height: '100%'
+  },
+  cardHeader: {
+    padding: '16px 20px',
+    borderBottom: '1px solid #e2e8f0',
+    backgroundColor: '#1e40af',
+    color: 'white'
+  },
+  cardBody: {
+    padding: '20px'
+  },
+  featureItem: {
+    display: 'flex',
+    alignItems: 'flex-start',
+    marginBottom: '12px'
+  },
+  checkIcon: {
+    color: '#1e40af',
+    marginRight: '8px',
+    marginTop: '2px',
+    flexShrink: 0
+  },
+  sectionTitle: {
+    fontSize: '1.1rem',
+    fontWeight: 'bold',
+    color: '#1e40af',
+    marginTop: '16px',
+    marginBottom: '8px'
+  },
+  tag: {
+    display: 'inline-block',
+    backgroundColor: '#dbeafe',
+    color: '#1e40af',
+    padding: '4px 8px',
+    borderRadius: '4px',
+    fontSize: '0.75rem',
+    fontWeight: '600',
+    marginRight: '6px',
+    marginBottom: '6px'
+  },
+  recommended: {
+    display: 'inline-block',
+    backgroundColor: '#e9f6fd',
+    borderLeft: '4px solid #2563eb',
+    padding: '10px',
+    marginTop: '16px',
+    borderRadius: '4px',
+    fontSize: '0.9rem'
+  }
+};
+
+// 教材データ
+const textbooks = [
+  {
+    id: 1,
+    title: '新定番 会議の英語フレーズ1000',
+    image: 'https://m.media-amazon.com/images/I/51jVvmr8x3L._SX342_SY445_.jpg',
+    tags: ['ビジネス会議', 'オンライン会議', '実用フレーズ集', '音声付き'],
+    features: [
+      'シンプルで実用的なフレーズ集',
+      'シーン別の構成',
+      'オンライン会議対応',
+      '携帯に便利な新書サイズ',
+      '音声ダウンロードとアプリ対応'
+    ],
+    sections: ['オンライン会議', '事前準備', '開始前', '進行役', '報告・提案', '議論', 'まとめ', '会議後 ほか'],
+    recommendation: 'WEB会議で即座に使えるフレーズを効率的に学びたい方に最適。特に会議の進行役や報告者として参加する機会が多い方に強くおすすめ。'
+  },
+  {
+    id: 2,
+    title: '改訂版 英語で話す力。141のサンプル・スピーチで鍛える',
+    image: 'https://m.media-amazon.com/images/I/51+xA9ak32L._SX345_BO1,204,203,200_.jpg',
+    tags: ['スピーチ例文', '論理的思考', '意見表明', '幅広いテーマ'],
+    features: [
+      '141本の英語スピーチで「話す力」を徹底トレーニング',
+      'スピーキング力が自然と伸びる構成',
+      'ビジネスにも日常会話にも対応した幅広いテーマ',
+      '学習のしやすさが考えられたレイアウト'
+    ],
+    sections: ['シャドーイングや音読練習', '自分の意見にアレンジ', 'スピーチの構成テンプレ化', '音読→録音→聞き返し'],
+    recommendation: '英語で自分の意見をスムーズに表現したい方に最適。特に「会議で意見を述べる構造」を身につけたい方におすすめ。1日1スピーチのルーティン学習に最適。'
+  },
+  {
+    id: 3,
+    title: '英語のWeb会議 直前3時間の技術',
+    image: 'https://m.media-amazon.com/images/I/41HqJAYYoOL._SX344_BO1,204,203,200_.jpg',
+    tags: ['短時間学習', 'Web会議特化', '緊急対策', '音声ダウンロード'],
+    features: [
+      'Web会議直前でも間に合う「3時間集中」対策本',
+      '場面別フレーズが豊富',
+      '音声DL付きでリスニング・発音も対策',
+      '「しごとのミニマム英語」シリーズの一冊'
+    ],
+    sections: ['急に英語会議に出ることになったビジネスパーソン', '英語でのファシリテーションが苦手な方', '英語会議に自信がないが最低限の準備をしたい方'],
+    recommendation: '時間がない中で、最低限必要なWeb会議用フレーズを効率的に学びたい方に最適。初めて英語会議に出る方の緊急対策に◎。'
+  }
+];
+
+const TextbookCard = ({ book }) => (
+  <div style={styles.card}>
+    <div style={styles.cardHeader}>
+      <h2 className="text-xl font-semibold">{book.title}</h2>
+    </div>
+    <div style={styles.cardBody}>
+      <img
+        src={book.image}
+        alt={book.title}
+        className="mx-auto mb-4 rounded"
+      />
+      <div className="mb-3">
+        {book.tags.map((tag, i) => (
+          <span key={i} style={styles.tag}>{tag}</span>
+        ))}
+      </div>
+      <div style={styles.sectionTitle}>主な特徴</div>
+      {book.features.map((feature, i) => (
+        <div key={i} style={styles.featureItem}>
+          <span style={styles.checkIcon}>✓</span>
+          <span>{feature}</span>
+        </div>
+      ))}
+      <div style={styles.sectionTitle}>{book.id === 2 ? '活用方法' : book.id === 3 ? '対象者' : '目次構成'}</div>
+      <ul className="list-disc pl-5 mb-4 text-sm">
+        {book.sections.map((sec, i) => (
+          <li key={i}>{sec}</li>
+        ))}
+      </ul>
+      <div style={styles.recommended}>
+        <strong>おすすめポイント：</strong> {book.recommendation}
+      </div>
+    </div>
+  </div>
+);
+
+const TextbookComparison = () => {
+  return (
+    <div className="p-4">
+      <h1 className="text-2xl font-bold mb-6 text-center text-blue-800">スピーキング学習候補教材の比較（第2ヶ月目フェーズ用）</h1>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {textbooks.map(book => (
+          <TextbookCard key={book.id} book={book} />
+        ))}
+      </div>
+
+      <div className="mt-8 bg-blue-50 p-5 rounded-lg shadow">
+        <h2 className="text-xl font-bold text-blue-800 mb-3">総合比較と選定ポイント</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <h3 className="font-bold text-blue-700 mb-2">学習目的別おすすめ</h3>
+            <ul className="pl-5 space-y-2">
+              <li><span className="font-medium">会議フレーズを幅広く習得したい：</span> 『新定番 会議の英語フレーズ1000』</li>
+              <li><span className="font-medium">論理的に意見を述べる力をつけたい：</span> 『改訂版 英語で話す力』</li>
+              <li><span className="font-medium">短時間で緊急対策したい：</span> 『英語のWeb会議 直前3時間の技術』</li>
+            </ul>
+          </div>
+          <div>
+            <h3 className="font-bold text-blue-700 mb-2">第2ヶ月目の学習計画との関連性</h3>
+            <ul className="pl-5 space-y-2">
+              <li><span className="font-medium">基本文法の自動化を終えた段階：</span> 文法知識を実践的な会話表現に変換する練習に最適</li>
+              <li><span className="font-medium">ビジネス表現の習得フェーズ：</span> 会議/Web会議の具体的な場面に対応した表現力を養える</li>
+              <li><span className="font-medium">Visual学習者向け：</span> 体系的に整理された表現集で視覚的に学習できる</li>
+            </ul>
+          </div>
+        </div>
+        <div className="mt-4 p-3 border-l-4 border-blue-600 bg-white">
+          <p className="font-bold text-blue-800">澤邉様のVERSANT結果と学習特性を考慮した推奨教材：</p>
+          <p className="mt-2">Visual学習者（24点）の強みを活かし、流暢さ（46点）向上を目指す観点から、『改訂版 英語で話す力』を中心に学習し、必要に応じて『新定番 会議の英語フレーズ1000』を参照する組み合わせがおすすめです。論理構成が学べる例文と、すぐに使えるフレーズ集の相互補完的な活用が効果的です。</p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default TextbookComparison;
